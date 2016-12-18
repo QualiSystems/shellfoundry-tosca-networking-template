@@ -10,7 +10,7 @@ from cloudshell.shell.core.driver_context import InitCommandContext, ResourceCom
     AutoLoadAttribute, AutoLoadDetails, CancellationContext
 
 
-from data_model import *  # run 'shellfoundry generate' to generate data model classes
+#from data_model import *  # run 'shellfoundry generate' to generate data model classes
 
 class {{cookiecutter.driver_name}} (ResourceDriverInterface):
 
@@ -206,17 +206,16 @@ class {{cookiecutter.driver_name}} (ResourceDriverInterface):
         :return Attribute and sub-resource information for the Shell resource you can return an AutoLoadDetails object
         :rtype: AutoLoadDetails
         """
-        # See below some example code demonstrating how to return the resource structure
-        # and attributes. In real life, of course, if the actual values are not static,
-        # this code would be preceded by some SNMP/other calls to get the actual resource information
 
+        # See below some example code demonstrating how to return the resource structure and attributes
+        # In real life, this code will be preceded by SNMP/other calls to the resource details and will not be static
         # run 'shellfoundry generate' in order to create classes that represent your data model
 
+        '''
         resource = {{cookiecutter.model_name}}.create_from_context(context)
         resource.vendor = 'specify the shell vendor'
         resource.model = 'specify the shell model'
 
-        # Example of a shell with chassis->module->port
         chassis1 = GenericChassis('Chassis 1')
         chassis1.model = 'WS-X4232-GB-RJ'
         chassis1.serial_number = 'JAE053002JD'
@@ -233,7 +232,8 @@ class {{cookiecutter.driver_name}} (ResourceDriverInterface):
         module1.add_sub_resource('1', port1)
 
         return resource.create_autoload_details()
-
+        '''
+        return AutoLoadDetails([], [])
 
     # </editor-fold>
 
