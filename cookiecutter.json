@@ -16,7 +16,7 @@
 	"year": "2016",
 	"version": "0.1.0",
 	"server_version" : "8.2",
-    "standard_version": "5.0.0",
+    "standard_version": "5.0.4",
 	"use_pypi_deployment_with_travis": "y",
     "template_name" : "gen2/networking",
     "template_descr" : "2nd generation shell template for a standard network devices",
