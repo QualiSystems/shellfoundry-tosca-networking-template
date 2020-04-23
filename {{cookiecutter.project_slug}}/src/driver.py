@@ -12,7 +12,7 @@ from cloudshell.shell.core.driver_context import InitCommandContext, ResourceCom
 
 #from data_model import *  # run 'shellfoundry generate' to generate data model classes
 
-class {{cookiecutter.driver_name}} (ResourceDriverInterface):
+class {{cookiecutter.driver_name}}(ResourceDriverInterface):
 
     def __init__(self):
         """
