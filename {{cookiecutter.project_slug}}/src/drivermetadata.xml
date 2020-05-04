@@ -2,7 +2,7 @@
     <Layout>
         <Category Name="Hidden Commands">
             <Command Name="shutdown" DisplayName="Shutdown" Tags="" Description="Sends a graceful shutdown to the device"/>
-            <Command Name="run_custom_config_command" DisplayName="Send Custom Config Command" Tags="">
+            <Command Name="run_custom_config_command" DisplayName="Run Custom Config Command" Tags="">
                 <Parameters>
                     <Parameter Name="custom_command" Type="String" Mandatory = "True" DisplayName="Command" DefaultValue=""
                                Description="The command to run. Note that commands that require a response are not supported."/>
@@ -31,10 +31,10 @@
 
                 </Parameters>
             </Command>
-            <Command Name="health_check"  Tags="" Description="Checks if the device is up and connectable"/>
 
         </Category>
-        <Command Name="run_custom_command" DisplayName="Send Custom Command" Tags="" Description="Executes a custom command on the device">
+        <Command Name="health_check" DisplayName="Health Check" Tags="" Description="Checks if the device is up and connectable"/>
+        <Command Name="run_custom_command" DisplayName="Run Custom Command" Tags="" Description="Executes a custom command on the device">
             <Parameters>
                 <Parameter Name="custom_command" Type="String" Mandatory = "True" DisplayName="Command" DefaultValue=""
                            Description="The command to run. Note that commands that require a response are not supported."/>
