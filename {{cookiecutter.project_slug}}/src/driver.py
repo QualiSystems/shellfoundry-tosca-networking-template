@@ -4,27 +4,40 @@
 import datetime
 import json
 
+from cloudshell.shell.core.driver_context import InitCommandContext, ResourceCommandContext, AutoLoadResource, \
+    AutoLoadAttribute, AutoLoadDetails, CancellationContext
 from cloudshell.shell.core.driver_utils import GlobalLock
 from cloudshell.shell.core.interfaces.save_restore import OrchestrationSaveResult, OrchestrationSavedArtifact, \
     OrchestrationSavedArtifactInfo, OrchestrationRestoreRules
 from cloudshell.shell.core.resource_driver_interface import ResourceDriverInterface
-from cloudshell.shell.core.driver_context import InitCommandContext, ResourceCommandContext, AutoLoadResource, \
-    AutoLoadAttribute, AutoLoadDetails, CancellationContext
-
-from cloudshell.shell.flows.connectivity.connectivity_result import ConnectivitySuccessResponse
+from cloudshell.shell.flows.connectivity.models.connectivity_result import ConnectivitySuccessResponse
 from cloudshell.shell.flows.connectivity.simple_flow import apply_connectivity_changes
-
 from cloudshell.shell.standards.networking.driver_interface import NetworkingResourceDriverInterface
-
 
 #from data_model import *  # run 'shellfoundry generate' to generate data model classes
 
-class {{cookiecutter.driver_name}}(ResourceDriverInterface, NetworkingResourceDriverInterface, GlobalLock):
 
+class {{cookiecutter.driver_name}}(ResourceDriverInterface, NetworkingResourceDriverInterface, GlobalLock):
+    """
+    ResourceDriverInterface - describe all functionality/methods which should be implemented
+                              for base abstract resource
+    NetworkingResourceDriverInterface - describe all functionality/methods which should be implemented
+                                        for network resource based on Networking Standard
+
+    In case of building driver based on Quali Standards and using Quali packages you can simplify your work
+    by importing functionality from cloudshell-shell-standards package:
+    from cloudshell.shell.standards.networking.resource_config import NetworkingResourceConfig
+
+    and organize working with network resource configuration as with object:
+    resource_config = NetworkingResourceConfig.from_context(shell_name=self.SHELL_NAME,
+                                                            supported_os=self.SUPPORTED_OS,
+                                                            context=context)
+
+
+    """
     def __init__(self):
-        """
-        ctor must be without arguments, it is created with reflection at run time
-        """
+        """ Constructor must be without arguments, it is created with reflection at run time """
+
         pass
 
     def initialize(self, context):
