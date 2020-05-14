@@ -1,23 +1,43 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import datetime
 import json
 
-from cloudshell.networking.apply_connectivity.apply_connectivity_operation import apply_connectivity_changes
-from cloudshell.networking.apply_connectivity.models.connectivity_result import ConnectivitySuccessResponse
+from cloudshell.shell.core.driver_context import InitCommandContext, ResourceCommandContext, AutoLoadResource, \
+    AutoLoadAttribute, AutoLoadDetails, CancellationContext
+from cloudshell.shell.core.driver_utils import GlobalLock
 from cloudshell.shell.core.interfaces.save_restore import OrchestrationSaveResult, OrchestrationSavedArtifact, \
     OrchestrationSavedArtifactInfo, OrchestrationRestoreRules
 from cloudshell.shell.core.resource_driver_interface import ResourceDriverInterface
-from cloudshell.shell.core.driver_context import InitCommandContext, ResourceCommandContext, AutoLoadResource, \
-    AutoLoadAttribute, AutoLoadDetails, CancellationContext
-
+from cloudshell.shell.flows.connectivity.models.connectivity_result import ConnectivitySuccessResponse
+from cloudshell.shell.flows.connectivity.simple_flow import apply_connectivity_changes
+from cloudshell.shell.standards.networking.driver_interface import NetworkingResourceDriverInterface
 
 #from data_model import *  # run 'shellfoundry generate' to generate data model classes
 
-class {{cookiecutter.driver_name}} (ResourceDriverInterface):
 
+class {{cookiecutter.driver_name}}(ResourceDriverInterface, NetworkingResourceDriverInterface, GlobalLock):
+    """
+    ResourceDriverInterface - describe all functionality/methods which should be implemented
+                              for base abstract resource
+    NetworkingResourceDriverInterface - describe all functionality/methods which should be implemented
+                                        for network resource based on Networking Standard
+
+    In case of building driver based on Quali Standards and using Quali packages you can simplify your work
+    by importing functionality from cloudshell-shell-standards package:
+    from cloudshell.shell.standards.networking.resource_config import NetworkingResourceConfig
+
+    and organize working with network resource configuration as with object:
+    resource_config = NetworkingResourceConfig.from_context(shell_name=self.SHELL_NAME,
+                                                            supported_os=self.SUPPORTED_OS,
+                                                            context=context)
+
+
+    """
     def __init__(self):
-        """
-        ctor must be without arguments, it is created with reflection at run time
-        """
+        """ Constructor must be without arguments, it is created with reflection at run time """
+
         pass
 
     def initialize(self, context):
@@ -174,7 +194,6 @@ class {{cookiecutter.driver_name}} (ResourceDriverInterface):
 
     # <editor-fold desc="Connectivity Provider Interface (Optional)">
 
-    '''
     # The ApplyConnectivityChanges function is intended to be used for using switches as connectivity providers
     # for other devices. If the Switch shell is intended to be used a DUT only there is no need to implement it
 
@@ -190,10 +209,6 @@ class {{cookiecutter.driver_name}} (ResourceDriverInterface):
         return apply_connectivity_changes(request=request,
                                           add_vlan_action=lambda x: ConnectivitySuccessResponse(x,'Success'),
                                           remove_vlan_action=lambda x: ConnectivitySuccessResponse(x,'Success'))
-
-
-
-    '''
 
     # </editor-fold>
 
